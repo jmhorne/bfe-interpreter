@@ -21,7 +21,16 @@ class Interpreter:
         }
     
     def execute(self, program: Memory) -> None:
-        pass
+        self.program = program
+        self.program.set_pointer(0)
+
+        while self.program.get_pointer() < self.program.get_size():
+            command = chr(self.program.get_data())
+
+            if command in self.commands:
+                self.commands[command]()
+            
+            self.program.increase_pointer()
 
     def output(self) -> None:
         data = self.memory.get_data()
