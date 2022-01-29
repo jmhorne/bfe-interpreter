@@ -23,4 +23,5 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) -r $(EXEC)
+	@$(RM) -r $(BINDIR)
+	@$(RM) -r $(OBJDIR)
