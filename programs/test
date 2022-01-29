@@ -1,0 +1,39 @@
+>+
+>+
+[
+    [-]
+    +++++ +++++ +++
+
+    [>],
+
+    
+
+    // copy to next two cells
+    [>+>+<<-]
+
+    // copy back into original cells
+    >>[<<+>>-]<
+
+    // move last block right one space
+    [>+<-]
+
+    // get to cell 2
+    <[<]>
+
+    [>]> // get back to last cell
+
+    [
+        -
+        [<]<[<]>+ // get back to cell 2 and increment
+
+        [>]> // get back to last cell
+    ]
+
+    [<]> // get back to cell #2
+
+
+    ^?0-16
+    
+    
+    [-] // delete this after done. kills no matter what
+]

@@ -1,0 +1,50 @@
+>           // cell 0 is buffer
+>           // cell 1 is anchor
++>          // cell 2 is terminator cell
++           // cell 3 is input holder cell
+
+<           // while terminator cell is not zero get input
+
+[
+    [-]
+    +++++ +++++ +++     // 4 'ctrl-d' EOF
+
+    >,                  // move to input cell, get input
+
+    >>[>]+       // increment new cell so we can find it
+    [<]<         // move to input cell
+
+    // copy input buffer to buffer cell and new input cell
+    [
+        <<<+    // incrememnt buffer cell
+        >>>-    // decrement input buffer cell`
+        >>[>]<+ // move to new input cell and increment
+        [<]<    // move back to input buffer cell
+    ]
+
+    >>[>]<- // subtract extra 1 from new input
+    [<]<    // move back to input buffer cell
+
+    // subtract buffer cell from terminator cell. If terminator
+    // cell becomes 0 then loop is done
+    <<<
+
+    [
+        -
+        >>-
+        <<
+    ]
+
+    >> // move to terminator cell
+]
+
+// print inputs to stdout
+
+>>>
+
+^?5-18
+
+[
+    .>
+]
+
