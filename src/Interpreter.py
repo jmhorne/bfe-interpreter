@@ -37,6 +37,8 @@ class Interpreter:
 
         if (32 <= data <= 176) or data == 10:
             print(chr(data), end='')
+        elif data == 0xd:
+            print()
         else:
             print("\\x{:02x}".format(data), end='')
     
