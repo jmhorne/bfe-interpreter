@@ -113,11 +113,13 @@ memory_decrease_pointer (memory_t * p_memory)
         goto EXIT;
     }
 
-    p_memory->pointer--;
-
-    if (p_memory->pointer < 0)
+    if (0 == p_memory->pointer)
     {
         p_memory->pointer = p_memory->size - 1;
+    }
+    else
+    {
+        p_memory->pointer--;
     }
 
     b_result = true;
