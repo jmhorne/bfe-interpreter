@@ -199,7 +199,21 @@ memory_set_data (memory_t * p_memory, uint8_t data)
 }
 
 size_t
-memory_get_size (memory_t *);
+memory_get_size (memory_t * p_memory)
+{
+    size_t size = 0;
+
+    if (!p_memory)
+    {
+        goto EXIT;
+    }
+
+    size = p_memory->size;
+
+    EXIT:
+
+    return size;
+}
 
 void
 memory_destructor (memory_t ** pp_memory)
