@@ -91,11 +91,6 @@ memory_increase_pointer (memory_t * p_memory)
 
     p_memory->pointer++;
 
-    if (p_memory->pointer >= p_memory->size)
-    {
-        p_memory->pointer = 0;
-    }
-
     b_result = true;
 
     EXIT:
@@ -113,11 +108,7 @@ memory_decrease_pointer (memory_t * p_memory)
         goto EXIT;
     }
 
-    if (0 == p_memory->pointer)
-    {
-        p_memory->pointer = p_memory->size - 1;
-    }
-    else
+    if (0 != p_memory->pointer)
     {
         p_memory->pointer--;
     }
