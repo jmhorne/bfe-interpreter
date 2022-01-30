@@ -172,6 +172,23 @@ memory_get_data (memory_t * p_memory)
     return result;
 }
 
+uint8_t
+memory_get_data_at (memory_t * p_memory, size_t position)
+{
+    uint8_t result = 0;
+
+    if ((!p_memory) || (position >= p_memory->size))
+    {
+        goto EXIT;
+    }
+
+    result = p_memory->p_blocks[position];
+
+    EXIT:
+
+    return result;
+}
+
 bool
 memory_set_data (memory_t * p_memory, uint8_t data)
 {

@@ -39,6 +39,9 @@ memory_set_pointer (memory_t *, size_t);
 uint8_t
 memory_get_data (memory_t *);
 
+uint8_t
+memory_get_data_at (memory_t *, size_t);
+
 bool
 memory_set_data (memory_t *, uint8_t);
 
