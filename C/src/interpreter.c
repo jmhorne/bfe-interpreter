@@ -41,6 +41,9 @@ print_memory (interpreter_t * p_interpreter);
 size_t
 pull_number (interpreter_t * p_interpreter);
 
+void
+debug (interpreter_t * p_interpreter);
+
 typedef struct interpreter_t
 {
     memory_t * p_memory;
@@ -158,6 +161,7 @@ interpreter_execute (interpreter_t * p_interpreter, char * p_filename)
             break;
 
             case '^':
+                debug(p_interpreter);
             break;
         }
 
@@ -421,6 +425,14 @@ pull_number (interpreter_t * p_interpreter)
     EXIT:
 
     return result;
+}
+
+void
+debug (interpreter_t * p_interpreter)
+{
+    printf("\n***** DEBUG *****\n\n");
+    printf("Program pointer: %lu\n", memory_get_pointer(p_interpreter->p_program));
+    printf(" Memory pointer: %lu\n", memory_get_pointer(p_interpreter->p_memory));
 }
 
 /*** end of file ***/
