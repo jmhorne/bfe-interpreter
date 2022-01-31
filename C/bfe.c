@@ -1,20 +1,17 @@
 #include "include/interpreter.h"
 #include "include/stack.h"
+#include "include/memory.h"
 
 #include <stdio.h>
 
 int
 main (void)
 {
-    stack_t * s = stack_constructor();
+    interpreter_t * i = interpreter_constructor();
 
-    stack_push(s, 500);
+    interpreter_execute(i, "../programs/test");
 
-    printf("stack is empty %d\n", stack_is_empty(s));
-    printf("%lu\n", stack_pop(s));
-    printf("stack is empty %d\n", stack_is_empty(s));
-
-    stack_destructor(&s);
+    interpreter_destructor(&i);
 
     return 0;
 }
