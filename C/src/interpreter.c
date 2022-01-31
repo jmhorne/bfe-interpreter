@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <ctype.h>
 
 #include "../include/interpreter.h"
 #include "../include/stack.h"
@@ -33,6 +34,12 @@ jump_unconditional (interpreter_t * p_interpreter);
 
 void
 comment (interpreter_t * p_interpreter);
+
+void
+print_memory (interpreter_t * p_interpreter);
+
+size_t
+pull_number (interpreter_t * p_interpreter);
 
 typedef struct interpreter_t
 {
@@ -147,6 +154,7 @@ interpreter_execute (interpreter_t * p_interpreter, char * p_filename)
             break;
 
             case '?':
+                print_memory(p_interpreter);
             break;
 
             case '^':
@@ -350,6 +358,69 @@ comment (interpreter_t * p_interpreter)
         memory_increase_pointer(p_interpreter->p_program);
     }
 
+}
+
+void
+print_memory (interpreter_t * p_interpreter)
+{
+
+    if (!p_interpreter)
+    {
+        return;
+    }
+
+    memory_increase_pointer(p_interpreter->p_program);
+    size_t start = pull_number(p_interpreter);
+    memory_increase_pointer(p_interpreter->p_program);
+    size_t end = pull_number(p_interpreter);
+
+    printf("\n***** MEMORY *****\n\n");
+
+    for (size_t idx = start; idx < end; idx++)
+    {
+        printf("%lu\t", idx);
+    }
+
+    printf("\n");
+
+    for (size_t idx = start; idx < end; idx++)
+    {
+        printf("%u\t", memory_get_data_at(p_interpreter->p_memory, idx));
+    }
+    
+    printf("\n");
+}
+
+size_t
+pull_number (interpreter_t * p_interpreter)
+{
+    size_t result = 0;
+
+    if (!p_interpreter)
+    {
+        goto EXIT;
+    }
+
+    char    num_str[10] = {0};
+    uint8_t ptr         = 0;
+    int     character   = memory_get_data(p_interpreter->p_program);
+    size_t  program_ptr = memory_get_pointer(p_interpreter->p_program);
+    size_t  program_sz  = memory_get_size(p_interpreter->p_program);
+
+    while ((isdigit(character)) && (program_ptr < program_sz) &&
+            (ptr < 9))
+    {
+        num_str[ptr++] = (char) character;
+        memory_increase_pointer(p_interpreter->p_program);
+        program_ptr++;
+        character = memory_get_data(p_interpreter->p_program);
+    }
+
+    result = atol(num_str);
+
+    EXIT:
+
+    return result;
 }
 
 /*** end of file ***/
